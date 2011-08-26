@@ -1,0 +1,15 @@
+from pyramid.view import view_config
+from pyramid.httpexceptions import HTTPNotFound
+
+import {{package}}.models as M
+
+@view_config(route_name='sample', renderer='sample/index.mako')
+def sample(request):
+    return dict(samples=request.db.query(M.Sample))
+    
+@view_config(route_name='sample_instance', renderer='sample/instance.mako')
+def sample_instance(request):
+    sample = request.db.query(M.Sample).get(request.matchdict.get('id'))
+    if not sample:
+        raise HTTPNotFound
+    return dict(sample=sample)
