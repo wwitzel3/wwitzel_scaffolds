@@ -42,6 +42,6 @@ setup(name='wwitzel_scaffolds',
       entry_points = """\
         [paste.paster_create_template]
         wwitzel_routesalchemy=wwitzel_scaffolds:WRoutesAlchemyTemplate
-        wwitzel_routesmonogo=wwitzel_scaffolds:WRoutesMongoTemplate
+        wwitzel_routesming=wwitzel_scaffolds:WRoutesMongoTemplate
       """
       )
