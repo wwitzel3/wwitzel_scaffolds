@@ -1,4 +1,5 @@
 from pyramid.config import Configurator
+from pyramid.events import NewRequest
 
 import {{package}}.models as M
 from {{package}}.security import RequestWithDBAttribute
@@ -21,6 +22,7 @@ def main(global_config, **settings):
     sample_1 = M.Sample(name='Sample One', value=99)
     sample_2 = M.Sample(name='Sample Two', value=1)
     M.DBSession.flush()
+    M.DBSession.close_all()
     ### This is just for the demo of the scaffold and should be here!
     ###########
      
@@ -32,5 +34,11 @@ def main(global_config, **settings):
     config.scan('{{package}}.views')
     config.add_static_view('static', '{{package}}:static')
     
+    config.add_subscriber(close_mongo_db, NewRequest)
     config.end()
     return config.make_wsgi_app()
+
+def close_mongo_db(event):
+    def close(request):
+        M.DBSession.close_all()
+    event.request.add_finished_callback(close)
