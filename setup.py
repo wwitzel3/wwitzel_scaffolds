@@ -14,9 +14,11 @@ except IOError:
 install_requires=[
     'pyramid',
     'sqlalchemy',
+    'Ming',
+    'pymongo',
     'mako',
     ]
-    
+
 setup(name='wwitzel_scaffolds',
       version='0.1',
       description=('Custom scaffolds for the Pyramid web application '

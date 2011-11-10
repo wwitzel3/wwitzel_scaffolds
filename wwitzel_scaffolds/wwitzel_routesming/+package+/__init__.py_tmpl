@@ -14,16 +14,13 @@ def main(global_config, **settings):
     config.begin()
     ## Database
     config.scan('{{package}}.models')
-    M.init_mongo(engine=(settings.get('mongo.url'), settings.get('mongo.db')))
+    M.init_mongo(engine=(settings.get('mongo.url'), settings.get('mongo.database')))
     
     ###########
     ### This is just for the demo of the scaffold and should be here!
-    try:
-        sample_1 = M.Sample(dict(name='Sample One', value=99))
-        sample_2 = M.Sample(dict(name='Sample Two', value=1))
-        M.DBSession.flush()
-    except:
-        pass
+    sample_1 = M.Sample(name='Sample One', value=99)
+    sample_2 = M.Sample(name='Sample Two', value=1)
+    M.DBSession.flush()
     ### This is just for the demo of the scaffold and should be here!
     ###########
      

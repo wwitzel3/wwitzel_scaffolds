@@ -3,16 +3,17 @@ from ming.datastore import DataStore
 from ming.orm import ThreadLocalORMSession
 from ming.orm import Mapper
 
-mainsession = Session()
-DBSession = ThreadLocalORMSession(mainsession)
+session = Session()
+DBSession = ThreadLocalORMSession(session)
 
 def init_mongo(engine):
-    datastore = DataStore(*engine)
-    mainsession.bind = datastore
+    server, database = engine
+    datastore = DataStore(server, database=database)
+    session.bind = datastore
     Mapper.compile_all()
 
     for mapper in Mapper.all_mappers():
-        mainsession.ensure_indexes(mapper.collection)
+        session.ensure_indexes(mapper.collection)
 
 # Database includes here allow for a simple programming API convention. By importing all the models here
 # we can use the import models as M convention throughout the rest of the code.
