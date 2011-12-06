@@ -14,6 +14,7 @@ def init_mongo(engine):
 
     for mapper in Mapper.all_mappers():
         session.ensure_indexes(mapper.collection)
+    DBSession.close_all()
 
 # Database includes here allow for a simple programming API convention. By importing all the models here
 # we can use the import models as M convention throughout the rest of the code.
