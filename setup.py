@@ -12,10 +12,10 @@ except IOError:
     README = CHANGES = ''
 
 install_requires=[
-    'pyramid',
+    'pyramid>=1.3a',
     'sqlalchemy',
     'Ming',
-    'pymongo',
+    'pymongo>=1.9,<2.0',
     'mako',
     ]
 
@@ -42,8 +42,12 @@ setup(name='wwitzel_scaffolds',
       zip_safe=False,
       install_requires = install_requires,
       entry_points = """\
+        [pyramid.scaffold]
+        wwitzel_routesalchemy=wwitzel_scaffolds:WRoutesAlchemyTemplate
+        wwitzel_routesming=wwitzel_scaffolds:WRoutesMongoTemplate
         [paste.paster_create_template]
         wwitzel_routesalchemy=wwitzel_scaffolds:WRoutesAlchemyTemplate
         wwitzel_routesming=wwitzel_scaffolds:WRoutesMongoTemplate
+ 
       """
       )
