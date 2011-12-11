@@ -17,6 +17,9 @@ install_requires=[
     'Ming',
     'pymongo>=1.9,<2.0',
     'mako',
+    'Paste',
+    'PasteDeploy',
+    'PasteScript',
     ]
 
 setup(name='wwitzel_scaffolds',

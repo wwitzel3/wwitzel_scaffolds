@@ -5,14 +5,15 @@
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
   <meta name="keywords" content="python web application" />
   <meta name="description" content="pyramid web application" />
-  <link rel="shortcut icon" href="${request.static_url('{{package}}:static/favicon.ico')}" />
-  <link rel="stylesheet" href="${request.static_url('{{package}}:static/style.css')}" type="text/css" media="screen" charset="utf-8" />
-  <!--[if lte IE 6]>
-  <link rel="stylesheet" href="${request.static_url('{{package}}:static/ie6.css')}" type="text/css" media="screen" charset="utf-8" />
-  <![endif]-->
-  
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
+
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script src="${request.static_url('{{package}}:static/less-1.1.5.js')}"></script>
   <script type="text/javascript" src="${request.static_url('{{package}}:static/script.js')}"></script>
+
+  <link rel="stylesheet/less" href="${request.static_url('{{package}}:static/lib/bootstrap.less')}">
+  <link rel="shortcut icon" href="${request.static_url('{{package}}:static/favicon.ico')}" />
+  <link rel="stylesheet/less" href="${request.static_url('{{package}}:static/style.less')}" media="screen" charset="utf-8" />
+
 </head>
 <body>
   <div id="wrap">
