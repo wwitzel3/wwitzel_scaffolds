@@ -8,6 +8,6 @@ class WRoutesAlchemyTemplate(PyramidTemplate):
     #template_renderer = staticmethod(paste_script_template_renderer)
 
 class WRoutesMongoTemplate(PyramidTemplate):
-    _template_dir = 'wwitzel_routesming'
-    summary = 'Pyramid MongoDB/Ming project using Mako templates and url dispatch (no traversal)'
+    _template_dir = 'wwitzel_routespymongo'
+    summary = 'Pyramid MongoDB project using Mako templates and url dispatch (no traversal)'
     #template_renderer = staticmethod(paste_script_template_renderer)
