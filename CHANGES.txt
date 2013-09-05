@@ -1,0 +1,5 @@
+* Moved from bootstrap to Foundation CSS
+* Removed Ming support.
+* Added pure pymongo support.
+* Restructed directorys in to includable modules.
+

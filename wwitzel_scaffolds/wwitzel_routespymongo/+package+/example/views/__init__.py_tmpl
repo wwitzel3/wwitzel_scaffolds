@@ -1,0 +1,30 @@
+from pyramid.view import view_config
+
+from {{package}}.example.schema import Example
+from {{package}}.example.model import get_example
+
+@view_config(route_name='example',
+             renderer='{{package}}:example/templates/example.html')
+def example(request):
+    return get_example(request)
+
+@view_config(route_name='index',
+             renderer='{{package}}:example/templates/index.html')
+def index(request):
+    name = request.POST.get('name','')
+    schema = Example()
+    form = deform.Form(schema, buttons=('submit',))
+
+    if 'form.submitted' in request.params:
+        try:
+            appstruct = form.validate(request.POST.items())
+            request.db.example.insert(appstruct)
+            return HTTPFound(location=request.route_url('example',
+                                                        name=appstruct.get('name')))
+        except deform.ValidationFailure as e:
+            pass
+
+    return {
+        'form':form.render(),
+    }
+

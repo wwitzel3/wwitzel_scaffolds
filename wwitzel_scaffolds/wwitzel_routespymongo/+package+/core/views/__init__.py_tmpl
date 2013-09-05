@@ -1,0 +1,10 @@
+from pyramid.view import view_config
+
+@view_config(route_name='index', renderer='{{package}}:core/templates/index.mako')
+def index(request):
+    from datetime import datetime
+    today = datetime.utcnow()
+    return {
+        'today':today
+    }
+

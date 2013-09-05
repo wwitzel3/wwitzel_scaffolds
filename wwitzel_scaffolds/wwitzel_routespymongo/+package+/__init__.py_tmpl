@@ -1,44 +1,23 @@
-from pyramid.config import Configurator
-from pyramid.events import NewRequest
+import os
 
-import {{package}}.models as M
-from {{package}}.security import RequestWithDBAttribute
+from pyramid.config import Configurator
+from pyramid.session import UnencryptedCookieSessionFactoryConfig
+
+here = os.path.dirname(__file__)
+
+def setup_includes(config):
+    config.include('{{package}}.core')
+    config.include('{{package}}.security')
+    config.include('{{package}}.example', route_prefix='/example')
 
 def main(global_config, **settings):
-    """ This function returns a WSGI application.
+    """ This function returns a Pyramid WSGI application.
     """
-    config = Configurator(
-        settings=settings,
-        request_factory=RequestWithDBAttribute,
-    )
-    
-    config.begin()
-    ## Database
-    config.scan('{{package}}.models')
-    M.init_mongo(engine=(settings.get('mongo.url'), settings.get('mongo.database')))
-    
-    ###########
-    ### This is just for the demo of the scaffold and should be here!
-    sample_1 = M.Sample(name='Sample One', value=99)
-    sample_2 = M.Sample(name='Sample Two', value=1)
-    M.DBSession.flush()
-    M.DBSession.close_all()
-    ### This is just for the demo of the scaffold and should be here!
-    ###########
-     
-    ## Routing & Views
-    config.add_route('index', '')
-    config.add_route('sample_instance', '/sample/{id}')
-    config.add_route('sample', '/sample')
-    
-    config.scan('{{package}}.views')
-    config.add_static_view('static', '{{package}}:static')
-    
-    config.add_subscriber(close_mongo_db, NewRequest)
-    config.end()
-    return config.make_wsgi_app()
+    session_factory = UnencryptedCookieSessionFactoryConfig('supersekret')
+    config = Configurator(settings=settings, session_factory=session_factory)
+    config.add_static_view('static', 'static', cache_max_age=3600)
 
-def close_mongo_db(event):
-    def close(request):
-        M.DBSession.close_all()
-    event.request.add_finished_callback(close)
+    setup_includes(config)
+
+    config.scan()
+    return config.make_wsgi_app()

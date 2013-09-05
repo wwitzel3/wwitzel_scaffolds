@@ -10,9 +10,7 @@ pyramid.default_locale_name = en
 pyramid.includes = pyramid_debugtoolbar
                    pyramid_tm
 
-mongo.url = mongodb://localhost:27017/
-mongo.database = {{project}}
-
+mongo_uri = mongodb://localhost:27017/{{project}}
 mako.directories = %(here)s/{{project}}/templates
 
 [server:main]

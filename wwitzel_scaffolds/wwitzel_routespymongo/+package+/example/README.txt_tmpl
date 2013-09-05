@@ -1,0 +1,10 @@
+This is an example of an includable package. This package is self contained.
+It knows about its routing, templates, and views. It also keeps all of
+its own model information.
+
+To use this package and enable to /example route for your application, modify
+the __init__.py and and add an include line for example.
+
+    config.include('{{package}}.example', route_prefix='/example')
+
+
