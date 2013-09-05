@@ -17,6 +17,8 @@ requires = [
     'Paste',
     'PasteDeploy',
     'PasteScript',
+    'colander',
+    'deform',
     ]
 
 tests_require = [

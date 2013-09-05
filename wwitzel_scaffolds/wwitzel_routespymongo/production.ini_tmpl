@@ -11,6 +11,7 @@ pyramid.includes = pyramid_tm
 
 mongo_uri = mongodb://localhost:27017/{{project}}
 mako.directories = %(here)s/{{project}}/templates
+auth.secret = supersekret
 
 [server:main]
 use = egg:Paste#http
