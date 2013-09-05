@@ -13,7 +13,9 @@ def example(request):
 def index(request):
     name = request.POST.get('name','')
     schema = Example()
-    form = deform.Form(schema, buttons=('submit',))
+    form = deform.Form(schema,
+                       action=request.route_url('index'),
+                       buttons=('submit',))
 
     if 'form.submitted' in request.params:
         try:
