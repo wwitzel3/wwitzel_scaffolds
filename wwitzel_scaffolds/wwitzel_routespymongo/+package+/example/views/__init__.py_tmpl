@@ -4,17 +4,17 @@ from {{package}}.example.schema import Example
 from {{package}}.example.model import get_example
 
 @view_config(route_name='example',
-             renderer='{{package}}:example/templates/example.html')
+             renderer='{{package}}:example/templates/example.mako')
 def example(request):
     return get_example(request)
 
-@view_config(route_name='index',
-             renderer='{{package}}:example/templates/index.html')
+@view_config(route_name='example_index',
+             renderer='{{package}}:example/templates/index.mako')
 def index(request):
     name = request.POST.get('name','')
     schema = Example()
     form = deform.Form(schema,
-                       action=request.route_url('index'),
+                       action=request.route_url('example_index'),
                        buttons=('submit',))
 
     if 'form.submitted' in request.params:
