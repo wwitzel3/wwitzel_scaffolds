@@ -12,17 +12,16 @@ except IOError:
     README = CHANGES = ''
 
 install_requires=[
-    'pyramid',
-    'sqlalchemy',
-    'pymongo',
-    'mako',
+    'pyramid>=1.5a',
+    'pymongo>=2.6',
+    'pyramid_mako',
     'Paste',
     'PasteDeploy',
     'PasteScript',
     ]
 
 setup(name='wwitzel_scaffolds',
-      version='0.2',
+      version='0.3',
       description=('Custom scaffolds for the Pyramid web application '
                    'development framework'),
       long_description=README + '\n\n' +  CHANGES,
@@ -45,10 +44,8 @@ setup(name='wwitzel_scaffolds',
       install_requires = install_requires,
       entry_points = """\
         [pyramid.scaffold]
-        wwitzel_routesalchemy=wwitzel_scaffolds:WRoutesAlchemyTemplate
-        wwitzel_routespymongo=wwitzel_scaffolds:WRoutesMongoTemplate
+        ww3_pymongo=wwitzel_scaffolds:WRoutesMongoTemplate
         [paste.paster_create_template]
-        wwitzel_routesalchemy=wwitzel_scaffolds:WRoutesAlchemyTemplate
-        wwitzel_routespymongo=wwitzel_scaffolds:WRoutesMongoTemplate
+        ww3_pymongo=wwitzel_scaffolds:WRoutesMongoTemplate
       """
       )
