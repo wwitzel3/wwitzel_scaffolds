@@ -1,5 +1,7 @@
 from pyramid.view import view_config
 
+import deform
+
 from {{package}}.example.schema import Example
 from {{package}}.example.model import get_example
 

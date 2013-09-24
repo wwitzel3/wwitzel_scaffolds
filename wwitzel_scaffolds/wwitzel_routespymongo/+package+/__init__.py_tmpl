@@ -6,6 +6,8 @@ from pyramid.session import UnencryptedCookieSessionFactoryConfig
 here = os.path.dirname(__file__)
 
 def setup_includes(config):
+    config.include('pyramid_mako')
+
     config.include('{{package}}.core')
     config.include('{{package}}.security')
     config.include('{{package}}.example', route_prefix='/example')
