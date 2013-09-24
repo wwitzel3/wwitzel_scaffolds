@@ -1,6 +1,6 @@
 <html>
 <body>
-    ${example.get('name')}
+    ${form | n}
 </body>
 </html>
 
