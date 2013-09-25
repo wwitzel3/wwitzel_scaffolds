@@ -1,0 +1,7 @@
+"""Helper methods for creating and fetching example documents from the {{package}}_example collection"""
+
+def get_example(request):
+    return request.db.{{package}}_example.find_one({
+        'name':request.matchdict['name']
+    })
+

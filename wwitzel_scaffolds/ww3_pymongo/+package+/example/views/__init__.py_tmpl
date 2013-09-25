@@ -25,7 +25,7 @@ def index(request):
     if '__formid__' in request.params:
         try:
             appstruct = form.validate(request.POST.items())
-            request.db.example.insert(appstruct)
+            request.db.{{package}}_example.insert(appstruct)
             return HTTPFound(location=request.route_url('example',
                                                         name=appstruct.get('name')))
         except deform.ValidationFailure as e:

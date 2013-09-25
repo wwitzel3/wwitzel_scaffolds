@@ -1,7 +1,10 @@
 import pymongo
 import urlparse
 
+from pyramid.security import unauthenticated_userid
+
 from {{package}}.core.interfaces import IMongoDBMaker
+import {{package}}.core.model
 
 def get_mongo_db(request):
     db = request.registry.getUtility(IMongoDBMaker)
@@ -10,11 +13,17 @@ def get_mongo_db(request):
     request.add_finished_callback(cleanup)
     return db
 
+def get_user(request):
+    userid = unauthenticated_userid(request)
+    if userid is not None:
+        return model.get_user(request, userid)
+
 def includeme(config):
     mongo_url = urlparse.urlparse(config.registry.settings['mongo_uri'])
     client = pymongo.MongoClient(mongo_url.hostname, mongo_url.port)
     database = client[mongo_url.path[1:]]
     config.registry.registerUtility(database, IMongoDBMaker)
     config.add_request_method(get_mongo_db, 'db', reify=True)
+    config.add_request_method(get_user, 'user', reify=True)
     config.include('{{package}}.core.routes')
 

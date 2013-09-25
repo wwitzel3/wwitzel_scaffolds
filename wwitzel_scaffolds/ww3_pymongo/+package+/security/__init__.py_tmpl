@@ -1,7 +1,6 @@
 from pyramid.security import (
     Allow,
     Everyone,
-    ALL_PERMISSIONS,
 )
 
 from pyramid.authentication import AuthTktAuthenticationPolicy
@@ -9,20 +8,22 @@ from pyramid.authorization import ACLAuthorizationPolicy
 
 class RootACL(object):
     __acl__ = [
-        (Allow, Everyone, ALL_PERMISSIONS)
+        (Allow, Everyone, 'everyone'),
+        (Allow, 'g:basic', 'entry'),
+        (Allow, 'g:admin', ('entry', 'admin')),
     ]
 
     def __init__(self, request):
         self.request = request
 
+
 def groupfinder(userid, request):
     """Implement your groupfinder here. This should turn a list of
     groups for a given user.
-
-    user = request.db.user.find_one({'user':userid})
-    if user:
-        return user.get('groups')
     """
+    user = request.db.{{package}}_user.find_one({'user':userid})
+    if user:
+        return ['g:%s' % g for g in user.get('groups')]
     return []
 
 def includeme(config):
@@ -34,3 +35,4 @@ def includeme(config):
 
     config.set_authorization_policy(authz_policy)
     config.set_authentication_policy(authn_policy)
+    config.set_root_factory(RootACL)

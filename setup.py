@@ -21,7 +21,7 @@ install_requires=[
     ]
 
 setup(name='wwitzel_scaffolds',
-      version='0.3',
+      version='0.4.3',
       description=('Custom scaffolds for the Pyramid web application '
                    'development framework'),
       long_description=README + '\n\n' +  CHANGES,

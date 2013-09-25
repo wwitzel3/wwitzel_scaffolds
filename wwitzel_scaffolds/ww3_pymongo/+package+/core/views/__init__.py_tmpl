@@ -1,10 +1,60 @@
 from pyramid.view import view_config
 
-@view_config(route_name='index', renderer='{{package}}:core/templates/index.mako')
-def index(request):
-    from datetime import datetime
-    today = datetime.utcnow()
+from pyramid.security import (
+    authenticated_userid,
+    remember,
+    forget,
+    )
+
+from pyramid.httpexceptions import (
+    HTTPFound,
+    HTTPForbidden,
+    )
+
+from {{package}}.core.model import (
+    get_user,
+    validate_user,
+    )
+
+@view_config(context='pyramid.exceptions.Forbidden')
+def forbidden(request):
+    """Handle setting the next query property. Also prevent already logged in users
+    from seeing the login page again.
+    """
+    if authenticated_userid(request):
+        return HTTPForbidden()
+    location = request.route_url('core', action='login', _query=(('next', request.path),))
+    return HTTPFound(location=location)
+
+@view_config(renderer='{{package}}:core/templates/login.mako', route_name='core', match_param='action=login')
+def login(request):
+    next = request.params.get('next') or request.route_url('core_index')
+    username = ''
+    did_fail = False
+    if 'submit' in request.POST:
+         username = request.POST.get('username','')
+         password = request.POST.get('password','')
+         user = get_user(request, username)
+         if user and validate_user(request, user, password):
+             headers = remember(request, username)
+             return HTTPFound(location=next, headers=headers)
+         did_fail = True
     return {
-        'today':today
+        'username':username,
+        'next':next,
+        'failed_attempt': did_fail,
     }
 
+@view_config(route_name='core', match_param='action=logout')
+def logout(request):
+    headers = forget(request)
+    loginpage = request.route_url('core', action='login')
+    return HTTPFound(location=loginpage, headers=headers)
+
+@view_config(route_name='core_index', renderer='{{package}}:core/templates/index.mako', permission='entry')
+def index(request):
+    return {'username': request.user.get('username')}
+
+@view_config(route_name='core', renderer='{{package}}:core/templates/admin.mako', permission='admin', match_param='action=admin')
+def admin(request):
+    return {}

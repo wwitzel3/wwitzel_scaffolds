@@ -1,8 +1,5 @@
-from {{package}}.security import RootACL
-
-class Root(RootACL):
-    pass
 
 def includeme(config):
-    config.add_route('index', '/', factory=Root)
+    config.add_route('core_index', '/')
+    config.add_route('core', '/{action}')
 

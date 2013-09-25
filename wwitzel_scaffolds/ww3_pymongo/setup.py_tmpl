@@ -49,6 +49,9 @@ setup(name='{{project}}',
       entry_points = """\
       [paste.app_factory]
       main = {{package}}:main
+
+      [console_scripts]
+      {{package}}_initialize_db = {{package}}.scripts.initialize:main
       """,
       paster_plugins=['pyramid'],
       )
