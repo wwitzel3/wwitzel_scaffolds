@@ -1,1 +1,1 @@
-{{project}} README
+{{project}} READMEGetting started===============* gem install zurb-foundation* gem install compass* python setup.py develop* {{project}}_initialize_db development.ini* compass compile* pserve development.ini

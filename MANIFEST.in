@@ -1,1 +1,1 @@
-recursive-include wwitzel_scaffolds *.py *_tmpl *.mako
+recursive-include wwitzel_scaffolds *.py *_tmpl *.mako README *.js *.scss

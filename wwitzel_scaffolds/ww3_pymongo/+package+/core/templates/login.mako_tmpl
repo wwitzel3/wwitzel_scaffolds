@@ -1,4 +1,9 @@
 <html>
+<head>
+  <link href="${request.static_url('{{package}}:static/stylesheets/_normalize.css')}" rel="stylesheet" type="text/css" />
+  <link href="${request.static_url('{{package}}:static/stylesheets/app.css')}" media="screen, projector, print" rel="stylesheet" type="text/css" />
+</head>
+
 <body>
 
 <form name="login_form" method="POST" action="${request.route_url('core', action='login')}">

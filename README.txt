@@ -8,13 +8,9 @@ Usage
 
 * pip install wwitzel-scaffolds
 * pcreate -t ww3_pymongo demo
-* cd demo/
-* python setup.py develop
 
-At this point you need to edit your development.ini to point to your mongo installation.
+More information
+================
 
-* demo_initialize_db development.ini
-* pserve development.ini
-
-This will set you up with a basic demo application with two user accounts.
+The README of the newly created project will include further setup instructions.
 
